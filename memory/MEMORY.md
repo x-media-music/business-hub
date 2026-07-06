@@ -1,0 +1,29 @@
+# Memory Index - Universal-Mantel-Memories (Pre-Seed)
+
+Dieser Index enthaelt Mantel-Regeln, die in jedem Hub gelten - unabhaengig vom Fachgebiet.
+Pflege weitere Memories nach dem Format: `- [Titel](datei.md) - einzeilige Beschreibung`
+
+## Nordstern
+- [Super-Gehirn-Standard](feedback_super_gehirn_standard.md) - Treffsicher, proaktiv, selbststaendig. Owner soll Aussagen 1:1 weitergeben koennen. Keine Aufsicht noetig.
+
+## Mindset & Gate
+- [Mitdenken-Pflicht](feedback_mitdenken_pflicht.md) - Vor unumkehrbaren Aktionen Doppel-Check.
+- [Gate niemals impliziert](feedback_gate_niemals_impliziert.md) - Aktion nur auf explizites JA aufs OWNER-GATE. Stille = kein Go.
+- [Responsive Arbeitsweise](feedback_responsive_arbeitsweise.md) - Keine langen Blockaden, Background nutzen.
+
+## Externe Kommunikation
+- [Externe Mails immer HTML](feedback_externe_mails_immer_html.md) - Plaintext flacht ab, HTML mit Struktur.
+- [Finale Mail komplett zeigen](feedback_finale_mail_komplett_zeigen.md) - Body + Signatur 1:1 vor Freigabe.
+- [Keine Hintertuer in Mahn-Mails](feedback_keine_hintertuer_in_mails.md) - Klare Bitte, keine "damit wir planen koennen"-Floskeln.
+- [Anrede mit Vornamen spiegeln](feedback_anrede_vorname_spiegeln.md) - Schreibt Empfaenger mit Vornamen, wir auch (Hamburger Sie als Default).
+- [Querpruefen vor Nachfassen](feedback_querpruefen_vor_nachfassen.md) - Akte/Mail-Verlauf lesen vor Nachfass.
+- [Schreiben professionell](feedback_schreiben_professionell.md) - Saubere Struktur, PDF bei Vertraegen.
+
+## Hub-Disziplin
+- [Ansicht-Cleanup mit Original-Check](feedback_ansicht_cleanup_verifikation.md) - Vor Loeschen Original am Produktivplatz verifizieren.
+- [Session-Start Pflichtprogramm](feedback_session_start_pflichtprogramm.md) - Datum/MEMORY/Checkpoint/Briefing-Tabelle.
+- [Session-Protokoll ist Pflicht](feedback_session_protokoll_pflicht.md) - logs/session_protokoll.md am Start anlegen.
+- [Ende-Befehl 5-Durchgang](feedback_ende_befehl.md) - Wissensbasis -> MEMORY -> Gegenpruefung -> Optimierung -> System-Check.
+
+## User / Project / Reference
+_(diese Bereiche werden waehrend der Arbeit gefuellt)_

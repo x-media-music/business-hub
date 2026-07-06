@@ -1,0 +1,25 @@
+# Niemals versehentlich committen / weitergeben:
+scripts/azure_app.env
+scripts/mail.env
+scripts/tokens/
+backups/
+logs/session_checkpoint.md
+logs/session_protokoll.md
+*.bak-*
+__pycache__/
+*.pyc
+scripts/crm_keys.env
+crm_keys.env
+scripts/buchhaltung_keys.env
+buchhaltung_keys.env
+
+# --- Ergänzung Phase 2 (GitHub-Sync) ---
+# Alle echten .env-Dateien ausschließen, Templates aber behalten:
+scripts/*.env
+*.env
+!scripts/*_template.env
+!*_template.env
+# Session-Logs bleiben lokal (memory/ wird BEWUSST mitgesichert):
+logs/
+# macOS
+.DS_Store

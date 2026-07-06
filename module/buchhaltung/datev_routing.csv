@@ -1,0 +1,10 @@
+Rechnungssteller;Zahlweg;Zielbox;Notiz
+TS Veranstaltungstechnik GmbH & Co. KG;Überweisung (offen);Rechnungseingang;Technischer Dienstleister Backline/FOH/Personal
+UTA Edenred;Lastschrift (Bank);Bank;Tankkarte — immer 3 PDFs (RE+GSB+EPN) → zu 1 PDF zusammenführen
+Telekom;Lastschrift (Bank);Bank;Mobilfunk-Rechnung, wiederkehrend
+STRATO;Lastschrift (Bank);Bank;Hosting/Domains, wiederkehrend
+Daniela Metellus (Alias DG Projekt);Überweisung;Rechnungseingang;Wohnzimmerkonzerte (Act)
+Celonis Inc.;Kreditkarte (Master);Kreditkarte Master;SaaS (USD)
+Brevo (Sendinblue);Lastschrift (PayPal→Bank);Bank;E-Mail-Tool, wiederkehrend, Zahlung via PayPal-Lastschrift
+Rechtsanwaltskanzlei Poser (Ulrich Poser);Überweisung (offen);Rechnungseingang;Anwaltskosten GEMA-/Medienrecht — Büro Hamburg
+Mediapool Stuttgart GmbH;Überweisung (offen);music->Rechnungseingang / event->Dropbox offene ER;Veranstaltungstechnik/Backline/Lager; Box haengt vom Rechnungsempfaenger ab: x-media music GmbH -> DATEV Rechnungseingang; x-media event GmbH (frueher 'x-eventec') -> Dropbox

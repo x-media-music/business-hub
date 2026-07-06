@@ -1,0 +1,10 @@
+Bewirtungsbeleg zur Verbuchung.
+
+Beleg: OGGI Tavola Ristorante, Stuttgart
+Datum: 04.07.2026
+Anlass: Besprechung Technik 2026 / Ablauf Denkendorf
+Teilnehmer: Falk Gruber, Dirk Wöhrle
+Betrag inkl. Trinkgeld: 100,00 EUR
+Zahlweg: EC
+
+x-media music GmbH

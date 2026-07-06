@@ -1,0 +1,7 @@
+Belegart_Zahlweg;Zielordner
+Offene Eingangsrechnung (zu zahlen);XE offene Eingangsrechnungen
+Bezahlte Eingangsrechnung (Überweisung/Lastschrift);XE bezahlte Eingangsrechnungen
+Bezahlt per Mastercard;XE bezahlte Eingangsrechnungen/Master
+Barbeleg/Kasse;XE Kassenbelege
+Eigene Ausgangsrechnung;XE offene Ausgangsrechnugnen
+Bewirtung EC (event);XE bezahlte Eingangsrechnungen

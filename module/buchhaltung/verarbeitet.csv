@@ -1,0 +1,17 @@
+Datum;Beleg;Box;Betrag;Status
+2026-07-01;TS Veranstaltungstechnik 26-0148;Rechnungseingang;593,87 €;an DATEV übergeben + bezahlt 01.07.2026
+2026-07-01;STRATO DRP154853267;Bank;15,62 €;an DATEV übergeben
+2026-07-01;UTA Tankkarte 2026-05;Bank;718,98 €;an DATEV übergeben
+2026-07-01;UTA Tankkarte 2026-06;Bank;443,77 €;an DATEV übergeben
+2026-07-01;Telekom Mobilfunk 05/2026;Bank;154,65 €;an DATEV übergeben
+2026-07-01;Brevo SIB-5380226;Bank;55,00 €;an DATEV übergeben
+2026-07-01;Celonis 2026-06;Kreditkarte Master;9,00 USD;an DATEV übergeben
+2026-07-01;STRATO DRP154466626;Bank;42,00 €;an DATEV übergeben (Testbeleg regulär nachgereicht)
+2026-07-01;Bewirtung Trattoria Paesana 05.03.2026;Kasse;200,00 €;Bewirtungsbeleg TEST — von Dirk in DATEV wieder gelöscht
+2026-07-02;RA Poser Rg 2600053;Rechnungseingang;3.310,29 €;an DATEV übergeben (offener Posten, Überweisung durch Dirk)
+2026-07-03;Angebotsfreigabe Weinstadt 25.07.2026 (an Tobias Hena, DIE NEUE 107.7);—;—;Mail mit signiertem Angebot gesendet (info@xmedia-event.de → t.hena@dieneue1077.de)
+2026-07-04;RE131589 Mediapool Stuttgart GmbH;Rechnungseingang;1.071,00 €;an DATEV übergeben (offener Posten, Überweisung durch Dirk)
+2026-07-05;Bewirtung OGGI Tavola Ristorante 04.07.2026 (EC);Bank;100,00 €;an DATEV übergeben (Bewirtungsbeleg music, EC → Box Bank; Zusatzblatt+Scan)
+2026-07-05;Marc Lamerz RE-720 2026 (Drum Sounds);event Dropbox XE offene ER;1.123,50 €;in Dropbox abgelegt (offener Posten, Überweisung durch Dirk)
+2026-07-05;Salvatore Trippi 2026-005 (VIPS Juni);event Dropbox XE offene ER;900,00 €;bereits in Dropbox vorhanden (04.07.); Duplikat-Ablage vermieden
+2026-07-05;KORREKTUR Marc Lamerz RE-720;event Dropbox;1.123,50 €;BEZAHLT (Überweisung Dirk); lag bereits seit 03.07. in 'XE bezahlte Eingangsrechnungen'; meine irrtümlichen Zweitkopien in offene+bezahlte wieder entfernt; aus offene_posten gestrichen

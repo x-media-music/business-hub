@@ -1,0 +1,10 @@
+Datum;Typ;Region;Land;Empfaenger;Event;Status
+2026-07-01;Akquise-Mail;gemischt;DE/AT/CH;18;Hofbraeu-Regiment;gesendet
+2026-07-01;Bounce;Bayern;DE;1;Hofbraeu-Regiment;unzustellbar
+2026-07-01;Akquise-Mail;gemischt;DE/AT/CH;17;VIPS-Partyband;gesendet
+2026-07-02;Akquise-Mail;gemischt;DE/AT/CH;30;Hofbraeu-Regiment R2;gesendet
+2026-07-03;Akquise-Mail;Groß-Runde;DE/AT/CH;49;Hofbraeu-Regiment R3;gesendet
+2026-07-03;Akquise-Mail;Groß-Runde;DE/AT/CH;48;VIPS-Partyband R2;gesendet
+2026-07-03;Bounce;Bayern;DE;1;Hofbraeu Blattlschoner;unzustellbar
+2026-07-04;Akquise-Mail;Groß-Runde 2;DE/AT/CH;50;Hofbraeu-Regiment;gesendet
+2026-07-04;Akquise-Mail;Groß-Runde 2;DE/AT/CH;47;VIPS-Partyband;gesendet

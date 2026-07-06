@@ -1,0 +1,9 @@
+Beleg zur Verbuchung — Rechnungseingang.
+
+Rechnungssteller: Mediapool Stuttgart GmbH
+Rechnungsnummer: RE131589/1
+Rechnungsdatum: 02.07.2026
+Betrag: 1.071,00 EUR (netto 900,00 + 19% USt 171,00)
+Firma: x-media music GmbH
+
+x-media music GmbH

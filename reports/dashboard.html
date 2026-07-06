@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buchhaltung Dashboard — x-media music GmbH</title>
+<style>
+  :root { --bg:#0f172a; --card:#fff; --ink:#1e293b; --muted:#64748b;
+           --accent:#2563eb; --red:#dc2626; --green:#16a34a; --line:#e2e8f0; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,sans-serif;
+          background:#f1f5f9; color:var(--ink); }
+  header { background:var(--bg); color:#fff; padding:22px 28px; }
+  header h1 { margin:0; font-size:19px; }
+  header .sub { color:#94a3b8; font-size:13px; margin-top:4px; }
+  .wrap { max-width:1000px; margin:0 auto; padding:24px 28px 60px; }
+  .kpis { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:8px; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          padding:16px 20px; flex:1; min-width:170px; }
+  .kpi .n { font-size:26px; font-weight:700; }
+  .kpi .l { color:var(--muted); font-size:13px; margin-top:2px; }
+  .kpi.red .n { color:var(--red); } .kpi.green .n { color:var(--green); }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px;
+             padding:18px 20px; margin-top:20px; }
+  section h2 { margin:0 0 12px; font-size:15px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+  tbody tr:hover { background:#f8fafc; }
+  .empty { color:var(--green); font-weight:600; }
+  .foot { color:var(--muted); font-size:12px; margin-top:24px; text-align:center; }
+</style></head><body>
+<header>
+  <h1>🧾 Buchhaltung Dashboard — x-media music GmbH</h1>
+  <div class="sub">Stand: 06.07.2026 07:09 · Inbox-Cursor: rechnung: UID 582 (2026-07-05T10:39) · info: UID 138366 (2026-07-06T07:08) · rechnung_event: UID 583 (2026-07-05T10:41) · info_event: UID 7326 (2026-07-06T07:08) · info#monitor: UID 138351 (2026-07-04T18:05) · info_event#monitor: UID 7293 (2026-07-04T17:17) · rechnung#monitor: UID 582 (2026-07-04T16:07) · rechnung_event#monitor: UID 582 (2026-07-03T14:06) · info_event#monitor2: UID 7293 (2026-07-04T17:17)</div>
+</header>
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi red"><div class="n">9</div><div class="l">Offene Posten</div></div>
+    <div class="kpi red"><div class="n">38.892,94 €</div><div class="l">Offener Betrag</div></div>
+    <div class="kpi green"><div class="n">16</div><div class="l">Belege verarbeitet</div></div>
+    <div class="kpi"><div class="n">9</div><div class="l">Gelernte Zuordnungen</div></div>
+  </div>
+
+  <section><h2>🔴 Offene Posten (zu bezahlen)</h2>
+    <table><thead><tr><th>Rechnungssteller</th><th>RgNr</th><th>Betrag</th><th>Faellig</th><th>Box</th><th>Status</th><th>Notiz</th></tr></thead><tbody><tr><td>DIE NEUE 107.7 (Radio L12)</td><td>2260582</td><td>2.915,50 €</td><td>08.07.2026 (2% Skonto)</td><td>event Dropbox offene ER</td><td>OFFEN</td><td>Radiokampagne Münchingen</td></tr><tr><td>DIE NEUE 107.7 (Radio L12)</td><td>2260584</td><td>547,40 €</td><td>08.07.2026 (2% Skonto)</td><td>event Dropbox offene ER</td><td>OFFEN</td><td>Skonto bis 08.07 = 536,45</td></tr><tr><td>GEMA (x-media music GmbH)</td><td>Vergleich Mitgl. 1036985</td><td>15.000,00 €</td><td>15.12.2026</td><td>n. zugeordnet (DATEV-Routing offen)</td><td>OFFEN</td><td>GEMA-Vergleich Live-Sparten bis GJ2025</td></tr><tr><td>GEMA (Dirk Wöhrle PRIVAT)</td><td>Vergleich Mitgl. 1048460</td><td>15.000,00 €</td><td>15.12.2026</td><td>PRIVAT (nicht GmbH-DATEV)</td><td>OFFEN</td><td>GEMA-Vergleich privat</td></tr><tr><td>Rechtsanwaltskanzlei Poser</td><td>2600053</td><td>3.310,29 €</td><td>sofort (Rg 02.07.2026)</td><td>Rechnungseingang</td><td>OFFEN</td><td>Anwaltskosten GEMA-Verfahren (music GmbH)</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Mediapool Stuttgart GmbH</td><td>RE131589/1</td><td>1.071,00 €</td><td>Rg 02.07.2026 (kein Ziel angegeben)</td><td>Rechnungseingang</td><td>OFFEN</td><td>3x Backline Wohnzimmerkonzert Regiment (Daniel Wöllhaf 18.06/26.06/02.07)</td></tr><tr><td>Mediapool Stuttgart GmbH</td><td>RE131590/1</td><td>148,75 €</td><td>Rg 02.07.2026</td><td>event Dropbox offene ER (XE offene Eingangsrechnungen)</td><td>OFFEN</td><td>5 Std Lager Daniel Woellhaf (Loewenmarkt Lorch)</td></tr><tr><td>Salvatore Trippi</td><td>2026-005</td><td>900,00 €</td><td>18.07.2026 (14 Tage, Rg 04.07.2026)</td><td>event Dropbox offene ER (XE offene Eingangsrechnungen)</td><td>OFFEN - Zahlung folgt in Kürze (Dirk 05.07.)</td><td>VIPS 3 Gigs Juni (Münchingen 13.06 / Finkwarder Karkmess 06.06 / Höxter 27.06)</td></tr></tbody></table>
+  </section>
+
+  <section><h2>✅ Verarbeitete Belege</h2>
+    <table><thead><tr><th>Datum</th><th>Beleg</th><th>Box</th><th>Betrag</th><th>Status</th></tr></thead><tbody><tr><td>2026-07-01</td><td>TS Veranstaltungstechnik 26-0148</td><td>Rechnungseingang</td><td>593,87 €</td><td>an DATEV übergeben + bezahlt 01.07.2026</td></tr><tr><td>2026-07-01</td><td>STRATO DRP154853267</td><td>Bank</td><td>15,62 €</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>UTA Tankkarte 2026-05</td><td>Bank</td><td>718,98 €</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>UTA Tankkarte 2026-06</td><td>Bank</td><td>443,77 €</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>Telekom Mobilfunk 05/2026</td><td>Bank</td><td>154,65 €</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>Brevo SIB-5380226</td><td>Bank</td><td>55,00 €</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>Celonis 2026-06</td><td>Kreditkarte Master</td><td>9,00 USD</td><td>an DATEV übergeben</td></tr><tr><td>2026-07-01</td><td>STRATO DRP154466626</td><td>Bank</td><td>42,00 €</td><td>an DATEV übergeben (Testbeleg regulär nachgereicht)</td></tr><tr><td>2026-07-01</td><td>Bewirtung Trattoria Paesana 05.03.2026</td><td>Kasse</td><td>200,00 €</td><td>Bewirtungsbeleg TEST — von Dirk in DATEV wieder gelöscht</td></tr><tr><td>2026-07-02</td><td>RA Poser Rg 2600053</td><td>Rechnungseingang</td><td>3.310,29 €</td><td>an DATEV übergeben (offener Posten, Überweisung durch Dirk)</td></tr><tr><td>2026-07-03</td><td>Angebotsfreigabe Weinstadt 25.07.2026 (an Tobias Hena, DIE NEUE 107.7)</td><td>—</td><td>—</td><td>Mail mit signiertem Angebot gesendet (info@xmedia-event.de → t.hena@dieneue1077.de)</td></tr><tr><td>2026-07-04</td><td>RE131589 Mediapool Stuttgart GmbH</td><td>Rechnungseingang</td><td>1.071,00 €</td><td>an DATEV übergeben (offener Posten, Überweisung durch Dirk)</td></tr><tr><td>2026-07-05</td><td>Bewirtung OGGI Tavola Ristorante 04.07.2026 (EC)</td><td>Bank</td><td>100,00 €</td><td>an DATEV übergeben (Bewirtungsbeleg music, EC → Box Bank</td></tr><tr><td>2026-07-05</td><td>Marc Lamerz RE-720 2026 (Drum Sounds)</td><td>event Dropbox XE offene ER</td><td>1.123,50 €</td><td>in Dropbox abgelegt (offener Posten, Überweisung durch Dirk)</td></tr><tr><td>2026-07-05</td><td>Salvatore Trippi 2026-005 (VIPS Juni)</td><td>event Dropbox XE offene ER</td><td>900,00 €</td><td>bereits in Dropbox vorhanden (04.07.)</td></tr><tr><td>2026-07-05</td><td>KORREKTUR Marc Lamerz RE-720</td><td>event Dropbox</td><td>1.123,50 €</td><td>BEZAHLT (Überweisung Dirk)</td></tr></tbody></table>
+  </section>
+
+  <section><h2>🧠 Gelernte Zuordnungen (Absender → DATEV-Box)</h2>
+    <table><thead><tr><th>Rechnungssteller</th><th>Zahlweg</th><th>Zielbox</th><th>Notiz</th></tr></thead><tbody><tr><td>TS Veranstaltungstechnik GmbH & Co. KG</td><td>Überweisung (offen)</td><td>Rechnungseingang</td><td>Technischer Dienstleister Backline/FOH/Personal</td></tr><tr><td>UTA Edenred</td><td>Lastschrift (Bank)</td><td>Bank</td><td>Tankkarte — immer 3 PDFs (RE+GSB+EPN) → zu 1 PDF zusammenführen</td></tr><tr><td>Telekom</td><td>Lastschrift (Bank)</td><td>Bank</td><td>Mobilfunk-Rechnung, wiederkehrend</td></tr><tr><td>STRATO</td><td>Lastschrift (Bank)</td><td>Bank</td><td>Hosting/Domains, wiederkehrend</td></tr><tr><td>Daniela Metellus (Alias DG Projekt)</td><td>Überweisung</td><td>Rechnungseingang</td><td>Wohnzimmerkonzerte (Act)</td></tr><tr><td>Celonis Inc.</td><td>Kreditkarte (Master)</td><td>Kreditkarte Master</td><td>SaaS (USD)</td></tr><tr><td>Brevo (Sendinblue)</td><td>Lastschrift (PayPal→Bank)</td><td>Bank</td><td>E-Mail-Tool, wiederkehrend, Zahlung via PayPal-Lastschrift</td></tr><tr><td>Rechtsanwaltskanzlei Poser (Ulrich Poser)</td><td>Überweisung (offen)</td><td>Rechnungseingang</td><td>Anwaltskosten GEMA-/Medienrecht — Büro Hamburg</td></tr><tr><td>Mediapool Stuttgart GmbH</td><td>Überweisung (offen)</td><td>music->Rechnungseingang / event->Dropbox offene ER</td><td>Veranstaltungstechnik/Backline/Lager</td></tr></tbody></table>
+  </section>
+
+  <div class="foot">Automatisch erzeugt aus den Hub-CSVs · <code>scripts/dashboard.py</code></div>
+</div></body></html>
