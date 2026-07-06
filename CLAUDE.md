@@ -11,6 +11,20 @@
 
 ---
 
+## GitHub-Sync (Phase 2 · seit 06.07.2026)
+
+Dieser Ordner ist ein privates Git-Repo: `github.com/x-media-music/business-hub`.
+
+- **Vor** Arbeitsbeginn: `git pull` (aktuellen Stand holen).
+- **Nach** abgeschlossener Arbeit: `git add -A && git commit -m "…"`, dann `git push` —
+  **nur mit Dirks Freigabe** (OWNER-GATE gilt auch für Push).
+- **Secrets NIE committen** (siehe `.gitignore`: `scripts/*.env`, `tokens/`, `backups/`, `logs/`).
+  Vor jedem Commit `git status` prüfen. `memory/` wird bewusst mitgesichert, `logs/` nicht.
+- Git-Operationen **nativ auf dem Mac** ausführen, nicht aus der Cowork-Sandbox
+  (dort können Git-Lock-Dateien nicht gelöscht werden).
+
+---
+
 ## OWNER
 
 - **Name:** Dirk Wöhrle
