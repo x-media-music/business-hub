@@ -142,6 +142,14 @@ Backup erstellen · Mail/Kalender/Akten LESEN · Web-Recherche · Logs/Reports
 schreiben · Dateien im Hub LESEN · Interne CSV/Notizen aktualisieren ·
 Entwürfe vorbereiten (ohne Versand) · Belege sortieren/benennen (ohne verschieben)
 
+**AUSNAHME zur Datei-Bewegung (eng gefasst, nur dieses eine Script):** Das verlustsichere
+Ansicht-Cleanup `scripts/ansicht_dokumente_cleanup.py` darf **autonom** Staging-Dateien ins
+`_archiv` verschieben bzw. alte Archiv-Kopien löschen — auch **unbeaufsichtigt** (z. B. im
+Morgen-Briefing) und **ohne OWNER-GATE**. Es fasst AUSSCHLIESSLICH Dateien an, für die ein
+produktives Original existiert; Einzelkopien ohne Original werden nie angetastet, nur gemeldet.
+Diese Ausnahme gilt NUR für dieses Script — jede andere Datei-Bewegung/-Löschung bleibt
+OWNER-GATE-pflichtig.
+
 ---
 
 ## 5 ABSOLUTE REGELN
@@ -266,6 +274,10 @@ Angebote, Verträge, Briefe, PDFs.
 - **Beim Session-Start** kurz `reports/ansicht_cleanup_report.md` prüfen; sind dort
   Einzelkopien gelistet → produktiv ablegen (dann räumt das Cleanup sie automatisch mit auf).
 - Aufruf: `python3 scripts/ansicht_dokumente_cleanup.py` (Test: `--dry-run`).
+- **Regel-Ausnahme:** Dieses Script ist die **einzige** erlaubte autonome Datei-Bewegung/-Löschung
+  im Hub (siehe OWNER-GATE → „AUSNAHME zur Datei-Bewegung"). Es darf ohne Nachfrage laufen — auch
+  im unbeaufsichtigten Morgen-Briefing — weil es verlustsicher nur Kopien mit vorhandenem Original
+  bewegt. Sonst gilt für Löschen/Verschieben weiterhin das OWNER-GATE.
 
 ---
 
