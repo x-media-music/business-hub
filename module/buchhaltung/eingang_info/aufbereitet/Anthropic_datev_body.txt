@@ -1,0 +1,11 @@
+Beleg zur Verbuchung — Kreditkarte Master.
+
+Rechnungssteller: Anthropic, PBC (548 Market Street, San Francisco, USA)
+Rechnungsnummer: 0LTDAXHG-0002
+Rechnungsdatum: 15.07.2026
+Betrag: 23,80 USD (netto 20,00 + 19% VAT Germany 3,80)
+Leistung: One-time credit purchase (Claude API)
+Zahlweg: Kreditkarte Master — bereits bezahlt am 15.07.2026
+Firma: x-media music GmbH
+
+x-media music GmbH

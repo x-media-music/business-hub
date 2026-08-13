@@ -1,0 +1,66 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:GMT+2
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:GMT+1
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Europe/Berlin:20260812T113000
+DTEND;TZID=Europe/Berlin:20260812T120000
+DTSTAMP:20260811T115022Z
+ORGANIZER:mailto:dirkwoehrle@gmail.com
+UID:0srtd6tktkg0oc8g4a1p7e3bc4@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=info@xmedia24.com;X-NUM-GUESTS=0:mailto:info@xmedia24.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=foerderung.cl02@calia-akademie.de;X-NUM-GUESTS=0:mailto:foerderung.cl02
+ @calia-akademie.de
+X-MICROSOFT-CDO-OWNERAPPTID:-1855368781
+CREATED:20260811T114958Z
+DESCRIPTION:Guten Tag Hr. Wöhrle\,\n\n\nwie telefonisch besprochen\, nimmt 
+ sich unser Förderexperte am persönlich Zeit\, um mit Ihnen zu prüfen\, ob f
+ ür Ihren Betrieb eine vollständig geförderte Weiterbildung und ein mögliche
+ r Lohnkostenzuschuss in Frage kommen.\n\n\nUnser Förderexperte hält diesen 
+ Termin persönlich für Ihren Betrieb frei und bereitet sich auf die Prüfung 
+ Ihrer Fördermöglichkeiten vor. Da diese Termine ausschließlich für ernsthaf
+ t interessierte Betriebe reserviert werden\, bitten wir Sie\, den Termin ve
+ rbindlich wahrzunehmen oder diesen mit den unten aufgeführten Link selbstst
+ ändig zu verschieben\, falls etwas dazwischenkommt. So kann die reservierte
+  Zeit gegebenenfalls einem anderen Betrieb zur Verfügung gestellt werden.\n
+ \n\nDauer: ca. 10–15 Minuten\n\nFörderexperte: Förderexperte Daniel Eidin -
+  Calia Akademie GmbH\n\nTelefonnummer: +49 176 42508631\n\nFirma: x-media m
+ usic GmbH\n\n\nMit besten Grüßen\n\n\nCalia Akademie GmbH\n\nGrund für die 
+ Terminverschiebung: Artztermin\n\nSie müssen an diesem Ereignis Änderungen 
+ vornehmen?\nAbsagen: https://calendly.com/cancellations/66908338-0880-48fc-
+ aec8-fb8cbb12a207\nVerschieben: https://calendly.com/reschedulings/66908338
+ -0880-48fc-aec8-fb8cbb12a207\n
+LAST-MODIFIED:20260811T114958Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Hr. Wöhrle und Förderexperte Daniel Eidin zur Förderprüfung
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H30M0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

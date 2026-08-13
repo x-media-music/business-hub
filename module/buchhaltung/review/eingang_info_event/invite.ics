@@ -1,0 +1,63 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/Rome
+X-LIC-LOCATION:Europe/Rome
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:GMT+2
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:GMT+1
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Europe/Rome:20260804T130000
+DTEND;TZID=Europe/Rome:20260804T140000
+DTSTAMP:20260803T110727Z
+ORGANIZER:mailto:dirkwoehrle@gmail.com
+UID:040000008200E00074C5B7101A82E00800000000919703313823DD01000000000000000
+ 010000000120F9637DB529C4CA4E8202C4375C300
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=Alex Doczi;X-NUM-GUESTS=0:mailto:alex@xmedia-event.de
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=info@xmedia-event.de;X-NUM-GUESTS=0:mailto:info@xmedia-event.de
+X-MICROSOFT-CDO-OWNERAPPTID:255704402
+CREATED:20260803T110717Z
+DESCRIPTION:\n_____________________________________________________________
+ ___________________\nMicrosoft Teams-Besprechung\nTeilnehmen: https://teams
+ .microsoft.com/meet/389639325509795?p=hKGNLYv2qRkMwrAMEM\nBesprechungs-ID: 
+ 389 639 325 509 795\nPasscode: Be6dr3Wz\n________________________________\n
+ Benötigen Sie Hilfe?<https://aka.ms/JoinTeamsMeeting?omkt=de-DE> | Systemre
+ ferenz<https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWUyMDQwZDgtN
+ jBjMy00YWViLWIzN2UtZTI4Njc2ODZiZGVl%40thread.v2/0?context=%7b%22Tid%22%3a%2
+ 2c164e4a4-5523-439f-a85c-5e49bbe0da2d%22%2c%22Oid%22%3a%224357069b-ff78-4d0
+ 6-8e30-eef2306c4343%22%7d>\nFür Organisatoren: Besprechungsoptionen<https:/
+ /teams.microsoft.com/meetingOptions/?organizerId=4357069b-ff78-4d06-8e30-ee
+ f2306c4343&tenantId=c164e4a4-5523-439f-a85c-5e49bbe0da2d&threadId=19_meetin
+ g_ZWUyMDQwZDgtNjBjMy00YWViLWIzN2UtZTI4Njc2ODZiZGVl@thread.v2&messageId=0&la
+ nguage=de-DE>\n____________________________________________________________
+ ____________________\n
+LAST-MODIFIED:20260803T110717Z
+LOCATION:Microsoft Teams-Besprechung
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Absprachen Partyband
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H30M0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

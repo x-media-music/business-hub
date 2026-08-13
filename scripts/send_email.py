@@ -19,7 +19,7 @@ Funktionen:
 Beispiel:
     python3 send_email.py \\
         --from rechnung \\
-        --to b967094d-...@uploadmail.datev.de \\
+        --to 5cc1bdc1-...@uploadmail.datev.de \\
         --subject "Rechnungseingang 26-0148 – 593,87 EUR" \\
         --body-file entwurf.html \\
         --attach "26-0148 ... Rechnung.pdf" --allow-office \\

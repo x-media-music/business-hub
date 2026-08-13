@@ -19,6 +19,7 @@ Beispiele:
     python3 check_inbox.py --from info --since 2026-06-01
     python3 check_inbox.py --from rechnung --save-attachments module/buchhaltung/eingang
     python3 check_inbox.py --from rechnung --cursor-show
+    python3 check_inbox.py --from info --folder sent --since 2026-07-01   # Ausgang lesen
 """
 from __future__ import annotations
 
@@ -56,6 +57,14 @@ MAILBOXES = {
     "rechnung": "RECHNUNG",            # rechnung@xmedia24.com (music)
     "info_event": "INFO_EVENT",        # info@xmedia-event.de (event)
     "rechnung_event": "RECHNUNG_EVENT",# rechnung@xmedia-event.de (event)
+}
+
+# Auswählbare IMAP-Ordner. "sent" = Strato-Gesendet-Ordner "Sent Items"
+# (der aktive Ausgang; "Sent Messages" ist eine tote Altlast und wird bewusst
+# NICHT verwendet). Namen mit Leerzeichen werden beim SELECT gequotet.
+FOLDERS = {
+    "inbox": "INBOX",
+    "sent": "Sent Items",
 }
 
 
@@ -132,6 +141,7 @@ def body_snippet(m, limit: int = 1600) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Inkrementeller Inbox-Check via Strato IMAP")
     ap.add_argument("--from", dest="mailbox", choices=list(MAILBOXES), default="info")
+    ap.add_argument("--folder", choices=list(FOLDERS), default="inbox", help="Ordner: inbox (Posteingang, Default) oder sent (Ausgang 'Sent Items')")
     ap.add_argument("--since", help="Ab Datum YYYY-MM-DD (Cursor unangetastet)")
     ap.add_argument("--between", help="Zeitraum YYYY-MM-DD..YYYY-MM-DD")
     ap.add_argument("--save-attachments", metavar="DIR", help="Anhänge in diesen Ordner speichern")
@@ -144,7 +154,12 @@ def main() -> int:
 
     state = load_state()
     box = args.mailbox
-    skey = f"{box}#{args.cursor_name}" if args.cursor_name else box   # eigener Cursor je Task
+    folder = args.folder
+    # Cursor-Basis: inbox behält den alten Schlüssel (rückwärtskompatibel),
+    # andere Ordner (z. B. sent) bekommen einen eigenen, damit Ein- und
+    # Ausgangs-Scans sich nicht gegenseitig überschreiben.
+    base = box if folder == "inbox" else f"{box}~{folder}"
+    skey = f"{base}#{args.cursor_name}" if args.cursor_name else base   # eigener Cursor je Task
 
     if args.cursor_show:
         print(f"Cursor {skey}: letzte UID = {state.get(skey, {}).get('last_uid', '—')}")
@@ -167,7 +182,9 @@ def main() -> int:
         sys.exit(f"❌ IMAP-Login fehlgeschlagen ({addr}): {exc}")
 
     try:
-        M.select("INBOX", readonly=True)  # readonly → markiert nichts als gelesen
+        imap_folder = FOLDERS[folder]
+        # Ordnernamen mit Leerzeichen (z. B. "Sent Items") müssen gequotet werden.
+        M.select(f'"{imap_folder}"', readonly=True)  # readonly → markiert nichts als gelesen
 
         incremental = not (args.since or args.between)
         last_uid = int(state.get(skey, {}).get("last_uid", 0)) if incremental else 0
@@ -197,22 +214,27 @@ def main() -> int:
             save_dir = (HUB_ROOT / args.save_attachments) if not Path(args.save_attachments).is_absolute() else Path(args.save_attachments)
             save_dir.mkdir(parents=True, exist_ok=True)
 
-        print(f"📥 Postfach {box} ({addr}) — {total} Treffer, zeige {len(uids)} (Limit {args.top}).")
+        icon = "📤" if folder == "sent" else "📥"
+        label = f"{box}/{folder}" if folder != "inbox" else box
+        print(f"{icon} Postfach {label} ({addr}) — {total} Treffer, zeige {len(uids)} (Limit {args.top}).")
         print("-" * 72)
 
         saved = 0
         for uid in uids:
             need_full = bool(save_dir) or args.with_body
-            fetch_part = "(BODY.PEEK[])" if need_full else "(BODY.PEEK[HEADER.FIELDS (FROM SUBJECT DATE)])"
+            fetch_part = "(BODY.PEEK[])" if need_full else "(BODY.PEEK[HEADER.FIELDS (FROM TO SUBJECT DATE)])"
             typ, mdata = M.uid("fetch", str(uid), fetch_part)
             if typ != "OK" or not mdata or mdata[0] is None:
                 continue
             raw = mdata[0][1]
             m = message_from_bytes(raw)
             frm = dec(m.get("From"))
+            to = dec(m.get("To"))
             subj = dec(m.get("Subject"))
             date = dec(m.get("Date"))
-            print(f"UID {uid} | {date}\n   Von:     {frm}\n   Betreff: {subj}")
+            # Im Ausgang ist "An:" die relevante Spalte, sonst "Von:".
+            party = f"   An:      {to}" if folder == "sent" else f"   Von:     {frm}"
+            print(f"UID {uid} | {date}\n{party}\n   Betreff: {subj}")
 
             if args.with_body:
                 snip = body_snippet(m)

@@ -53,6 +53,7 @@ Format pro Eintrag: `- [Titel](datei.md) — einzeilige Kurzbeschreibung`
 - **Donnerstag-Versand geplant (09.07.2026, 10:00):** 50 Konkurrenz-Tannenbaum-Leads (25 Hofbräu + 25 VIPS) in `donnerstag_hofbraeu.csv`/`donnerstag_vips.csv`, geplante Aufgabe `akquise-konkurrenz-versand-donnerstag-2026-07-09`. Bewusst getrennt vom Dienstag-Versand (Zustellbarkeit). Rücklauf 23.07. Grund: 100+ Kaltmails/Tag von einer Adresse schaden der Reputation → auf 2 Termine verteilen.
 - **Konkurrenzband-Liste = starke Tannenbaum-Quelle:** Dirk hat Liste `Konkurenz-Bands.csv` (31 Bands, u.a. Würzbuam, Allgäu Power, Nachtstark, Partyböcke, Frankenkracher, Hautnah, Dirndlknacker) geliefert. Deren Auftrittskalender → Veranstalter = hochwertige Volksfest-Leads. ALARM ist eine EIGENE x-media-Band (nicht Konkurrenz, nicht als Quelle nutzen).
 - **Wasen-Tannenbaum funktioniert (04.07.2026):** Reverse-Tannenbaum über Konkurrenz-Partybands (deren Auftrittskalender → Veranstalter der Feste) liefert hochwertige Volksfest-Leads. Bands als Quelle, nie kontaktieren. Bewährte Fund-Bands: OHLALA, 7 Promille, Ois Easy, Draufgänger, Troglauer, voXXclub, Kapelle So&So. Festwirte-Multiplikator (Festwirt-Website listet alle seine Feste → Veranstalter) ebenfalls stark.
+- **Auftritts-Konflikt-Check (08.07.2026):** Vor jedem Akquise-Versand die Auftrittsorte beider Bands abgleichen — Quelle `hofbraeu-regiment.de/termine` + `vips-partyband.de/termine` (ändern sich laufend, live prüfen). Regel: Band spielt dort → nur die ANDERE Band anbieten; beide spielen → Lead raus (Aktivkunde). Bekannte Fälle in `module/akquise/band_auftritte.md`: Koblenzer Oktoberfest→nur VIPS; Heiner Wiesn/Wernau/BOF Freiburg/Schwäbisch Gmünd→raus; Oktoberfest Leipzig/Dorsten/Waldshuter Chilbi→nur Hofbräu.
 - **Wasen-Exklusivität (04.07.2026):** Hofbräu-Regiment = Exklusivvertrag Zelt „Beim Benz" auf dem Cannstatter Wasen → KEINE anderen Wasen-Festzelte kontaktieren (Wasenwirt, Göckelesmaier, SchwabenWelt, Klauss&Klauss usw.). Wasen-Zelte NUR als Tannenbaum-Quelle nutzen (dort spielende Bands → deren Gigs → neue Veranstalter). Regel in `akquise_config.md`.
 - **Akquise-Zielprofil geschärft (04.07.2026):** Qualität vor Nähe — Priorität Festwirte/Zeltbetreiber > große Volks-/Wein-/Straßenfeste > Stadtfeste/Kommunen > Vereinsfeste (nur mit Partyband-Slot). Pflichtfilter: erkennbarer Party-/Live-Slot, keine reinen Blasmusik-Vereine, bekannte/große Feste bevorzugen. Geo breit inkl. Thüringen/Sachsen/NRW, Fest-Stärke schlägt Geografie. Band gemischt 50/50. Referenz-Kaliber: Augsburger Plärrer, Gäubodenfest. Details in `module/akquise/akquise_config.md`.
 - **Akquise-Mailstil (02.07.2026):** Helen Sanders = „Team Booking" (kein „Sekretärin", Dirk nicht namentlich im Text, nur ein Name). Einstieg „…weil wir denken, dass [Band] hervorragend zu Ihren Festen passt…". Homepage-Link je Band Pflicht-Baustein. Details in `module/akquise/akquise_config.md`.
@@ -74,3 +75,40 @@ Format pro Eintrag: `- [Titel](datei.md) — einzeilige Kurzbeschreibung`
 ## Pre-Seed: Universal-Mantel-Memories
 
 In `memory/` liegen 14 vorgefertigte Mantel-Memories (Mindset, Externe Kommunikation, Hub-Disziplin) — siehe `memory/MEMORY.md`. Direkt nutzbar, anpassbar, löschbar.
+
+---
+
+## Stand 17.07.2026 (Morgen-Briefing + Nachlauf)
+
+**Postfächer:** info@ heute wieder lesbar (Timeout vom 16.07. trat nicht auf), 4/4 gescannt ab 15.07.
+INBOX info@ hat weiterhin ~48.000 Mails → Aufräumen bleibt empfohlen (Timeout-Risiko).
+
+**Todoist wieder LIVE:** Connector war entfernt (nicht defekt) — Dirk hat am 17.07. neu autorisiert.
+Konto x-media/info@xmedia24.com (Pro), Projekt-IDs unverändert. 15 offene Aufgaben gespiegelt;
+alle 68 OFFENEN Zeilen tragen jetzt einen `[TD:]`-Marker. „Für Claude": leer.
+
+**Gelernt (in Regeln/Skripte einbauen — Task 20.07.):**
+- **CSV-Feldzahl-Check (Soll 6) ist Pflicht.** Ein Semikolon **im Titel** verschiebt alle Spalten →
+  Zeile wird in jeder Auswertung unsichtbar. Am 17.07. betraf das **FF Göggelsbuch (22.07., OFFEN)** —
+  wäre nie in einem Briefing aufgetaucht. Repariert; Titel dürfen kein `;` enthalten.
+- **`[TD:]`-Filter per Regex** auf echte Marker prüfen, nicht auf Textvorkommen — sonst fällt eine
+  Task raus, weil ihr Notiztext „[TD:" enthält (genau so passiert).
+
+**Neue Wissensbasis-Einträge:**
+- `R/Riecker-Gernot.md` — Gernot Riecker = `griecker@t-online.de`, befreundeter Fotograf,
+  Stammlieferant für Bandfotos, liefert per WeTransfer (Links laufen ab). Nicht = Nadine Bayer.
+- `B/Buchhaltungs-App_ruht.md` — Buchhaltungs-Automatisierung **ruht bewusst**.
+  `buchhaltung.xmedia24.com` ist offline = **so gewollt**, in Hostinger-Warnungen ignorieren.
+  **Befund:** Supabase-Backend löst nicht mehr auf → Zugänge in `buchhaltung_keys.env` vermutlich tot
+  (Task 20.07.: Dashboard prüfen). Produktiver Beleg-Weg NICHT betroffen.
+
+**Geklärt / nicht mehr nachfragen:**
+- **Nameserver** bleiben bei Strato — keine Umstellung gewünscht. Sites laufen korrekt über A-Record
+  auf der neuen Hostinger-IP 82.198.226.80 (verifiziert, HTTP 200).
+- **„Alfred"** wird vom Briefing **nicht** informiert — es gibt keinen Kanal dorthin. Wer/was Alfred ist,
+  ist ungeklärt (Spur: `_dach/COWORK-START-SNIPPET.md`, liegt außerhalb der freigegebenen Ordner).
+  Dirk am 17.07.: vorerst nicht weiterverfolgen.
+
+**Offene Loops mit datierter Aufgabe** (alle in aufgaben.csv + Todoist):
+Todoist-Restarbeiten 20.07. · Claude-API ohne Guthaben 17.07. · Plausible-Trial 17.07. ·
+Supabase Buchhaltungs-App 20.07.

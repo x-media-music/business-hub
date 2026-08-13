@@ -32,10 +32,13 @@ Portale), Belegsortierung, Überweisungs-Vorbereitung, Übergabe an DATEV.
 | Kategorie | Uploadmail-Adresse |
 |---|---|
 | **Bank 405070673** | `06aa928a-7817-4bcf-a4ef-c2185efe6c35@uploadmail.datev.de` |
-| **Rechnungseingang** | `b967094d-07fc-4fc1-8ace-436ced6f7484@uploadmail.datev.de` |
-| **Kreditkarte Master** | `7dd27b65-8a61-4ce7-ad22-ebcbd529f8e7@uploadmail.datev.de` |
-| **Kasse** | `1dca708b-4b05-4b1a-83e8-e7a1154f38e8@uploadmail.datev.de` |
-| **Rechnungsausgang** | `00c798b5-f0f7-496b-b382-179467447ae4@uploadmail.datev.de` |
+| **Rechnungseingang** | `5cc1bdc1-f56a-4718-b6da-325b7939246d@uploadmail.datev.de` |
+| **Kreditkarte Master** | `abd46470-258e-4ebd-92d2-4c18b26fe595@uploadmail.datev.de` |
+| **Kasse** | `868708a5-cb99-4ab3-ae70-0c71199e0f8a@uploadmail.datev.de` |
+| **Rechnungsausgang** | `9616a328-2fcb-4f57-8df0-768c803106c7@uploadmail.datev.de` |
+
+> **⚠️ Adress-Update 03.08.2026:** DATEV hatte einen internen Fehler; die Uploadmail-Adressen für **Rechnungseingang, Kreditkarte Master, Kasse und Rechnungsausgang** wurden neu vergeben (von Dirk bestätigt + mit den DATEV-Zieladress-Mails gegengeprüft). **Bank** (`06aa928a-…`) ist unverändert. Alte Adressen (b967094d / 7dd27b65 / 1dca708b / 00c798b5) NICHT mehr verwenden.
+
 
 ---
 
@@ -167,7 +170,7 @@ Anlass: <konkreter Anlass>
 3. `python3 scripts/bewirtung.py --scan <datei> --datum … --ort … --betrag … --zahlweg <bar|ec> --firma <music|event> --teilnehmer … --anlass …`
    → erzeugt **Zusatzblatt + Scan als EIN PDF** in `module/buchhaltung/bewirtung/`.
 4. Routing:
-   - **music, bar → Kasse** `1dca708b-4b05-4b1a-83e8-e7a1154f38e8@uploadmail.datev.de`
+   - **music, bar → Kasse** `868708a5-cb99-4ab3-ae70-0c71199e0f8a@uploadmail.datev.de`
    - **music, EC → Bank** `06aa928a-7817-4bcf-a4ef-c2185efe6c35@uploadmail.datev.de`
    - **event → Dropbox** (Zielordner noch zu hinterlegen — bis dahin lokal in `module/buchhaltung/bewirtung/` ablegen und Dirk informieren)
 5. Weiterleitung/Ablage **nur nach OWNER-GATE**. Fehlt eine Pflichtangabe (Teilnehmer/Anlass) → bei Dirk nachfragen, nicht raten.

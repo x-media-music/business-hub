@@ -1,6 +1,6 @@
 # Kahn Events – Anfrage Dirndljäger (Sonnenalm 03.09.2026)
 **Typ:** Veranstalter / Lead (Neuanfrage)
-**Zuletzt_gesynct:** 2026-07-04 01:37
+**Zuletzt_gesynct:** 2026-07-06 16:10 — Loop geschlossen, Warmkontakt (WV 06.07.2027)
 
 ## Das Wichtigste
 - Kontakt: **Lotta**, Kahn Events – lr@kahnevents.de (Event-Agentur)
@@ -16,3 +16,5 @@
 |---|---|---|
 | 2026-07-03 | Lotta (Kahn Events) | Anfrage über dirndljaeger.de: Event 03.09.2026 Sonnenalm, bayer. Live-Musik, Band+DJ |
 | 2026-07-04 | Claude | Antwort-Entwurf vorbereitet (Rückfragen, keine Gagen) -> wartet auf Freigabe; Task angelegt (fällig 07.07.) |
+| 2026-07-04 | Dirk | Ab info@xmedia24.com geantwortet: 03.09.2026 = Donnerstag, kurzfristig -> passt diesmal nicht. |
+| 2026-07-06 | Lotta | Bestätigt: wirklich 03.09.2026, akzeptiert Absage, hält Tür für künftige Anlässe offen. Loop geschlossen -> Warmkontakt, WV 06.07.2027. Optionaler Abschluss-Entwurf 2026-07-06_kahnevents_lotta_abschluss.html. |

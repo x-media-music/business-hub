@@ -71,6 +71,19 @@ spielen dort → deren Tourdaten/Auftritte → daraus neue Veranstalter-Leads ab
 - Gilt NUR für Akquise-Mails; die Sekretariats-Persona aus 00_core bleibt für
   sonstige Korrespondenz unberührt.
 
+## Werbe-Widerspruch respektieren (Dirk-Entscheid 16.07.2026)
+
+Fällt bei der Veredelung auf, dass ein Veranstalter im Impressum der Nutzung
+seiner Kontaktdaten **für Werbung ausdrücklich widerspricht** → Lead **streichen**,
+nicht anschreiben. (Beispiel: Stadt Moosburg a.d. Isar, 16.07.2026.)
+
+## ⚠️ Auftritts-Konflikt-Check vor JEDEM Versand (08.07.2026)
+
+Vor jedem Versand die Auftrittsorte beider Bands abgleichen (Quelle:
+`hofbraeu-regiment.de/termine` + `vips-partyband.de/termine`). Spielt eine Band
+beim Veranstalter → diese Band dort NICHT anbieten (andere Band nehmen); spielen
+beide → Lead raus (Aktivkunde). Details + bekannte Fälle: `band_auftritte.md`.
+
 ## Signatur Akquise (Dirk-Entscheid 03.07.2026)
 
 - Unter das Sign-off „Helen Sanders / Team Booking" kommt die **volle x-media-
