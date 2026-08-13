@@ -134,6 +134,37 @@ def box_from_route(route, firma):
         else: ordner="XE offene Eingangsrechnungen"
         return dict(datev_kategorie=None, datev_email=None, dropbox_ordner=ordner, zahlungsstatus=zahlungsstatus)
 
+_AMOUNT_RE = r'\d{1,3}(?:\.\d{3})*,\d{2}'
+def _amount_val(s): return float(s.replace(".", "").replace(",", "."))
+
+def extract_total(t):
+    """Rechnungs-Endbetrag bevorzugt aus einer beschrifteten Summenzeile ziehen
+    (Rechnungsbetrag/Gesamtbetrag/Zahlbetrag ...), nur als Notfall max()."""
+    labels = [
+        r'rechnungsbetrag', r'gesamtbetrag', r'zahlbetrag',
+        r'zu\s*zahlender?\s*betrag', r'zu\s*zahlen(?:der)?\s*betrag',
+        r'endbetrag', r'rechnungssumme', r'gesamtsumme',
+        r'bruttobetrag', r'gesamt\s*brutto', r'\btotal\b',
+    ]
+    best = None  # (prioritaets-index, betrag) — kleiner index = besser
+    for line in t.split("\n"):
+        low = line.lower()
+        for i, lab in enumerate(labels):
+            if re.search(lab, low):
+                ams = re.findall(_AMOUNT_RE, line)
+                if ams:
+                    val = _amount_val(ams[-1])
+                    # bei Gleichstand der Prioritaet die spaetere (untere) Zeile nehmen
+                    if best is None or i <= best[0]:
+                        best = (i, val)
+                break
+    if best is not None:
+        return round(best[1], 2)
+    amts = re.findall(_AMOUNT_RE, t)
+    if amts:
+        return round(max(_amount_val(a) for a in amts), 2)
+    return None
+
 def extract_fields(pdf_path):
     try:
         import pdfplumber
@@ -145,10 +176,9 @@ def extract_fields(pdf_path):
     m=re.search(r'(?:rechnungs\-?\s*(?:nr|nummer)|invoice\s*(?:no|number))[:.\s]*([A-Z0-9][A-Z0-9/\-]{3,})',t,re.I)
     if m: out["rechnungsnummer"]=m.group(1).strip()
     md=re.search(r'(\d{1,2}\.\s*\d{1,2}\.\s*\d{4}|\d{1,2}\.\s*[A-Za-zäöü]+\s*\d{4}|\d{4}-\d{2}-\d{2})',t)
-    amts=re.findall(r'\d{1,3}(?:\.\d{3})*,\d{2}',t)
-    if amts:
-        val=max(float(a.replace(".","").replace(",",".")) for a in amts)
-        out["betrag_brutto"]=round(val,2)
+    val=extract_total(t)
+    if val is not None:
+        out["betrag_brutto"]=val
     # Rechnungsempfaenger-Firma (fuer geteilte Absender)
     if re.search(r'x-?media\s*event|event\s*gmbh',t,re.I): out["_empf"]="event"
     elif re.search(r'x-?media\s*music|music\s*gmbh',t,re.I): out["_empf"]="music"
