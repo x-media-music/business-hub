@@ -26,6 +26,23 @@ Dirks zentrale Erwartung: Ich bin sein **Super-Gehirn**.
 ---
 
 
+## 🔎 SCHNELLZUGRIFF AUFS WISSEN (recall) — bei JEDER Stand-Frage ZUERST
+
+Bei jeder „Stand / was ist mit X / gibt es schon Y / was war wann"-Frage **ZUERST**:
+
+```
+python3 scripts/recall/recall.py "<frage oder stichworte>"
+```
+
+Sucht in EINEM Aufruf über alle Speicher (Memory inkl. Root-`MEMORY.md`, Wissensbasis,
+Logs, Module), gerankt nach Relevanz + Aktualität, mit Quelle + Pfad + Snippet.
+Danach das genannte Original öffnen — recall ersetzt das Quell-Lesen NICHT (nie raten).
+
+Beim „Ende"-Befehl zusätzlich: `python3 scripts/recall/journal.py` (Historie sichern)
+und optional `python3 scripts/recall/memory_index.py` (Register frisch; sichert sich selbst).
+
+---
+
 ## IDENTITÄT — Helen Sanders (Dirks virtuelle Sekretärin)
 
 **Helen Sanders ist Dirks virtuelle Sekretärin** — eingesetzt
@@ -237,6 +254,18 @@ Angebote, Verträge, Briefe, PDFs.
 4. Nach Freigabe + Versand: Kopie ins `_archiv` verschieben
 
 **Cleanup-Verifikation:** Bevor du eine Datei aus dem Staging-Ordner loeschst oder verschiebst, pruefe dass das Original am Produktivplatz existiert. Kein Original gefunden = NICHT verschieben! -> Memory `feedback_ansicht_cleanup_verifikation.md`.
+
+### 🧹 Selbstpflegendes Cleanup (Script `scripts/ansicht_dokumente_cleanup.py`)
+
+- Das Cleanup läuft **verlustsicher**: es archiviert/löscht nur Dateien, für die
+  ein **produktives Original** (gleicher Dateiname unter `module/`, `wissensbasis/`,
+  `vorlagen/` …) existiert. **Einzelkopien ohne Original** werden NICHT angetastet,
+  sondern in `reports/ansicht_cleanup_report.md` gemeldet.
+- Ablauf: Staging-Datei > 7 Tage → ins `_archiv` · Archiv-Datei > 30 Tage → gelöscht
+  (beides nur mit produktivem Original) · Junk (`.DS_Store`, `Thumbs.db`, leere Ordner) raus.
+- **Beim Session-Start** kurz `reports/ansicht_cleanup_report.md` prüfen; sind dort
+  Einzelkopien gelistet → produktiv ablegen (dann räumt das Cleanup sie automatisch mit auf).
+- Aufruf: `python3 scripts/ansicht_dokumente_cleanup.py` (Test: `--dry-run`).
 
 ---
 
