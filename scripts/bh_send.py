@@ -94,11 +94,42 @@ def dropbox_event_base() -> Path | None:
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
+UMLAUT = {"ä":"ae","ö":"oe","ü":"ue","Ä":"Ae","Ö":"Oe","Ü":"Ue","ß":"ss","é":"e","è":"e","á":"a","à":"a","ó":"o","ç":"c","ñ":"n","&":"und"}
+
+def _slug(s: str, maxlen: int = 40) -> str:
+    """Absender/Text -> dateinamentauglicher ASCII-Slug mit Unterstrichen."""
+    for a, b in UMLAUT.items():
+        s = s.replace(a, b)
+    out = []
+    for ch in s:
+        out.append(ch if (ch.isalnum() or ch in "-_.") else " ")
+    s = " ".join("".join(out).split())          # Mehrfach-Leerzeichen weg
+    s = s.strip(" ._-")[:maxlen].strip(" ._-")
+    return s.replace(" ", "_")
+
+def absender_slug(row: dict) -> str:
+    """Sauberer Rechnungssteller-Name: '' und () und Mailadresse raus."""
+    raw = (row.get("absender_name") or "").strip()
+    raw = raw.split("<")[0].split("(")[0].strip().strip('"').strip("'")
+    if "@" in raw:                               # Name war nur die Mailadresse
+        raw = raw.split("@")[0]
+    if not raw:
+        mail = (row.get("absender_email") or "").strip()
+        raw = mail.split("@")[0] if mail else ""
+    return _slug(raw) or "Beleg"
+
 def clean_name(row: dict) -> str:
-    rg = (row.get("rechnungsnummer") or row.get("id","")[:8]).replace("/", "-")
-    who = (row.get("absender_name") or "Beleg").split("(")[0].strip()[:40]
-    for ch in '\\/:*?"<>|': who = who.replace(ch, "")
-    return f"{who} {rg}.pdf".strip()
+    """Sprechender Dateiname fuer DATEV/Dropbox:
+       <Absender>_<Datum>[_RG-<Nr>].pdf   z. B. Jessie_Rennings_2026-08-14_RG-2623.pdf
+       Datum = Rechnungsdatum, sonst Eingangs-/Tagesdatum."""
+    datum = (row.get("rechnungsdatum") or row.get("created_at") or "")[:10]
+    if len(datum) != 10 or datum[4] != "-":
+        datum = datetime.now().strftime("%Y-%m-%d")
+    teile = [absender_slug(row), datum]
+    rg = _slug((row.get("rechnungsnummer") or "").strip(), 20)
+    if rg:
+        teile.append(rg if rg.upper().startswith(("RG", "RE", "RN")) else "RG-" + rg)
+    return "_".join(t for t in teile if t) + ".pdf"
 
 def protokoll(bid, aktion, details):
     sb("POST", "/rest/v1/bh_protokoll", {"beleg_id": bid, "aktion": aktion,
@@ -115,23 +146,29 @@ def send_music(row, pdf_bytes, dry) -> tuple[bool, str]:
     to = row.get("datev_email") or DATEV_BOXES.get(box)
     if not to:
         return False, f"keine DATEV-Adresse (box={box})"
+    name = clean_name(row)                       # sprechender Anhang-Dateiname fuer DATEV
     if dry:
-        return True, f"[DRY] -> DATEV {box} ({to})"
-    tmp_pdf = TMP / f"send_{row['id']}.pdf"; tmp_pdf.write_bytes(pdf_bytes)
-    betrag = row.get("betrag_brutto"); rg = row.get("rechnungsnummer") or "-"
+        return True, f"[DRY] -> DATEV {box} ({to}) als {name}"
+    # eigener Unterordner je Beleg, damit der Anhang den sprechenden Namen behaelt
+    # (send_email.py uebernimmt den Dateinamen 1:1 aus dem Pfad) und nichts kollidiert
+    tmp_dir = TMP / row["id"][:8]; tmp_dir.mkdir(parents=True, exist_ok=True)
+    tmp_pdf = tmp_dir / name; tmp_pdf.write_bytes(pdf_bytes)
+    betrag = row.get("betrag_brutto")
+    rg = (row.get("rechnungsnummer") or "").strip() or "-"
+    disp = absender_slug(row).replace("_", " ")   # lesbarer Name, ohne Mailadresse
     body = TMP / f"body_{row['id']}.html"
     body.write_text(f"<p>Beleg zur DATEV-Verbuchung (Box: {box}).</p>"
                     f"<p>Rechnungssteller: {row.get('absender_name','')}<br>"
                     f"Rechnungsnummer: {rg}<br>Betrag brutto: {betrag} EUR<br>"
                     f"Firma: x-media music GmbH</p>", encoding="utf-8")
     gh = hashlib.md5(body.read_text(encoding="utf-8").encode()).hexdigest()
-    subj = f"{row.get('absender_name','Beleg')} {rg} – {betrag} EUR – {box} (music)"
+    subj = f"{disp} – {rg} – {betrag} EUR – {box} (music)"
     cmd = [sys.executable, str(SEND), "--from", "rechnung", "--to", to,
            "--subject", subj, "--body-file", str(body), "--attach", str(tmp_pdf),
            "--gate-hash", gh, "--no-save-sent"]
     r = subprocess.run(cmd, capture_output=True, text=True)
     ok = r.returncode == 0 and "Gesendet" in (r.stdout + r.stderr)
-    return ok, (f"-> DATEV {box}" if ok else f"SENDFEHLER: {(r.stdout+r.stderr)[-200:]}")
+    return ok, (f"-> DATEV {box} ({name})" if ok else f"SENDFEHLER: {(r.stdout+r.stderr)[-200:]}")
 
 def send_event(row, pdf_bytes, dry) -> tuple[bool, str]:
     base = dropbox_event_base()
@@ -142,6 +179,10 @@ def send_event(row, pdf_bytes, dry) -> tuple[bool, str]:
     if not ziel.is_dir():
         return False, f"Zielordner fehlt: {ordner}"
     dest = ziel / clean_name(row)
+    if dest.exists():                            # nie eine fremde Datei ueberschreiben
+        stem, n = dest.stem, 2
+        while dest.exists():
+            dest = ziel / f"{stem}_{n}.pdf"; n += 1
     if dry:
         return True, f"[DRY] -> Dropbox/{ordner}/{dest.name}"
     dest.write_bytes(pdf_bytes)
@@ -149,7 +190,8 @@ def send_event(row, pdf_bytes, dry) -> tuple[bool, str]:
 
 def main():
     dry = "--dry-run" in sys.argv
-    st, rows = sb("GET", "/rest/v1/bh_belege?select=id,firma,absender_name,rechnungsnummer,"
+    st, rows = sb("GET", "/rest/v1/bh_belege?select=id,firma,absender_name,absender_email,rechnungsnummer,"
+                  "rechnungsdatum,created_at,"
                   "betrag_brutto,datev_kategorie,datev_email,dropbox_ordner,pdf_storage_path,zahlungsstatus,dirk_entschieden_am"
                   f"&dirk_entscheidung=eq.freigegeben&verarbeitet_am=is.null&dirk_entschieden_am=gte.{HUB_GOLIVE}&order=firma")
     if not isinstance(rows, list):

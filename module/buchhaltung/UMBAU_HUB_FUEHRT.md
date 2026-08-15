@@ -106,3 +106,21 @@ Getränke Zehnder 1.277,51 € (event) · Emily Woehrle 500 € (event) · Brevo
 - **Keine Zahlung/Überweisung** durch den Hub — nur Beleg-Weiterleitung, Dirk zahlt selbst.
 - **Backup vor jeder schreibenden Aktion.**
 - Bei Unsicherheit über die Box → Dirk fragen, lernen in `datev_routing.csv`.
+
+---
+
+## DATEINAMEN DER AUSGELIEFERTEN BELEGE (seit 15.08.2026)
+
+`bh_send.py` benennt jeden Beleg vor dem Versand sprechend um — vorher hieß der
+DATEV-Anhang `send_<uuid>.pdf` (in DATEV nicht auffindbar).
+
+**Schema:** `<Absender>_<Datum>[_RG-<Nummer>].pdf`
+z. B. `Jessie_Rennings_2026-08-14.pdf` · `UTA_Edenred_Deutschland_GmbH_und_Co._KG_2026-08-01_RG-26_0148.pdf`
+
+- **Absender** = `absender_name` bereinigt (Mailadresse/Klammern raus), Umlaute
+  transliteriert (ä→ae, ß→ss, &→und) — ASCII, damit DATEV/Mail nichts verstümmelt.
+- **Datum** = `rechnungsdatum`, sonst Eingangsdatum (`created_at`), sonst heute.
+- **RG-Nummer** nur wenn vorhanden; beginnt sie schon mit RG/RE/RN, kein zweites Präfix.
+- Gilt für **beide** Wege: DATEV-Mailanhang (music) und Dropbox-Kopie (event).
+- Dropbox: existiert der Name schon, wird `_2`, `_3` … angehängt (nie überschreiben).
+- Funktion: `clean_name()` / `absender_slug()` in `scripts/bh_send.py`.
