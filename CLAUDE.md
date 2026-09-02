@@ -60,6 +60,21 @@ Dieser Ordner ist ein privates Git-Repo: `github.com/x-media-music/business-hub`
 | Buchhaltung, Beleg, Rechnung, DATEV, Überweisung, Amazon-/Facebook-Beleg, Eingangsrechnung | `.claude/rules/03_buchhaltung.md` |
 | Aufgabe, Frist, Wiedervorlage, Reminder, GEMA, To-do | `.claude/rules/04_aufgaben_fristen.md` |
 | Programm, Setlist, Repertoire, Musikprogramm, Titelliste | `.claude/rules/05_programme.md` |
+| Kontakt, Adresse, Telefonnummer, Ansprechpartner, „schreib an …" | `.claude/rules/06_kontakte.md` |
+| Darlehen, Tilgung, Zinsen, Zinsabgrenzung, „von der Rechnung abziehen" | `module/darlehen/README.md` |
+
+### ⚠️ Darlehens-Check vor jeder Zahlungsvorbereitung (seit 31.08.2026)
+
+Steht der Rechnungssteller in `module/darlehen/`, **erst Darlehensstand prüfen, dann den
+Zahlbetrag nennen** — sonst geht der volle Rechnungsbetrag raus und die Tilgung ist weg.
+
+- Aktive Darlehensnehmer: **Janis Herb** (4.000 € vom 01.04.2026, music GmbH, 3 % p. a.)
+- Stand: `python3 scripts/darlehen.py janis_herb --status`
+- In der Zahlungs-Aufgabe immer Rechnungsbetrag · Tilgung · Restbetrag getrennt nennen.
+- Der Beleg geht trotzdem in **voller Höhe** an DATEV — die Tilgung betrifft nur die Zahlung.
+- Gebucht wird **erst nach der Überweisung** (Buchungsdatum = Zahltag).
+- Zum **31.12.** Zinsabgrenzung für die Steuerberatung: `--pdf --stichtag 31.12.JJJJ`
+  (läuft automatisch als geplante Aufgabe `darlehen-zinsabgrenzung-jahresende`, jährlich am 15.12.).
 
 ## REGELSYSTEM
 
@@ -70,6 +85,7 @@ Alle Regeln liegen in `.claude/rules/`:
 | `00_core.md` | **Kernregeln — IMMER laden.** OWNER-GATE, 5 absolute Regeln, Signaturen, Email-Regeln, Session-Workflow. |
 | `01_booking.md` / `02_akquise.md` | Booking + Akquise (vorgebaut) |
 | `03_buchhaltung.md` / `04_aufgaben_fristen.md` / `05_programme.md` | Buchhaltung, Aufgaben/Fristen, Programme (Onboarding 01.07.2026) |
+| `06_kontakte.md` | Adressbuch: Kontakt nachschlagen vor jeder Mail (16.08.2026) |
 
 ## BEI SESSION-START
 
@@ -115,3 +131,16 @@ Standardbibliothek). Serverdaten + Ablauf: `scripts/README.md`.
 - IMAP liest read-only; Versand nur hinter OWNER-GATE (Gate-Hash-Disziplin).
 - Belege aus rechnung@ lassen sich per `--save-attachments module/buchhaltung/eingang`
   direkt ziehen (Buchhaltungs-Workflow).
+
+## KONTAKTE (Apple-/iCloud-Adressbuch, seit 16.08.2026)
+
+Vor jeder Mail an eine Person: **Adresse nachschlagen, nie raten.**
+
+```bash
+python3 scripts/kontakt.py "Falk Gruber"     # unscharfe Suche im Cache
+python3 scripts/kontakte_export.py           # Cache neu ziehen (läuft täglich 06:45)
+```
+
+Cache: `module/kontakte/kontakte.csv` (gitignored, bleibt lokal) ·
+Regeln: `.claude/rules/06_kontakte.md` · Setup + Kontakte-MCP:
+`wissensbasis/A/Apple-Kontakte-Setup.md`

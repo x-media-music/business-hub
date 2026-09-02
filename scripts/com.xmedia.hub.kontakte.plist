@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.xmedia.hub.kontakte</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/dirkwoehrle/Documents/Claude/Projects/business_hub_Dirk_STARTER/scripts/kontakte_export.py</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>45</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/dirkwoehrle/Documents/Claude/Projects/business_hub_Dirk_STARTER/logs/kontakte_export.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/dirkwoehrle/Documents/Claude/Projects/business_hub_Dirk_STARTER/logs/kontakte_export.log</string>
+</dict>
+</plist>

@@ -23,3 +23,17 @@ scripts/*.env
 logs/
 # macOS
 .DS_Store
+
+# --- Kontakte-Cache (private Adressdaten, bleiben lokal) ---
+module/kontakte/kontakte.csv
+module/kontakte/*.csv
+module/kontakte/*.bak
+
+# --- Wohnzimmerkonzerte: interne Kalkulation + Gastgeber-Adressen (VERTRAULICH, bleiben lokal) ---
+module/booking/wohnzimmerkonzerte/*.numbers
+module/booking/wohnzimmerkonzerte/*.xlsx
+module/booking/wohnzimmerkonzerte/*.csv
+module/booking/wohnzimmerkonzerte/_extern_export/
+
+# Schreibtest-Marker der Regel-Pruefung
+.claude/rules/.schreibtest.weg

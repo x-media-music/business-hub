@@ -57,6 +57,10 @@ MAILBOXES = {
     "rechnung": "RECHNUNG",            # rechnung@xmedia24.com (music)
     "info_event": "INFO_EVENT",        # info@xmedia-event.de (event)
     "rechnung_event": "RECHNUNG_EVENT",# rechnung@xmedia-event.de (event)
+    # Nur-Lesen-Postfächer: hier versendet Ninox/das CRM, der Hub liest nur mit.
+    # Wichtig für den Stand-Check — sonst fasst der Hub nach, was längst raus ist.
+    "ninox": "NINOX",                  # ninox@xmedia24.com (Ninox-Versand, read-only)
+    "anfrage": "ANFRAGE",              # anfrage@xmedia24.com (CRM-Versand, read-only)
 }
 
 # Auswählbare IMAP-Ordner. "sent" = Strato-Gesendet-Ordner "Sent Items"
@@ -183,6 +187,22 @@ def main() -> int:
 
     try:
         imap_folder = FOLDERS[folder]
+        # Strato benennt den Gesendet-Ordner je Postfach unterschiedlich:
+        # info@/rechnung@ = "Sent Items", anfrage@ = "Sent". Darum den ersten
+        # Kandidaten nehmen, den das Postfach wirklich hat.
+        if folder == "sent":
+            typ, boxes = M.list()
+            vorhanden = set()
+            if typ == "OK":
+                for b in boxes or []:
+                    name = b.decode(errors="replace").split(' "." ')[-1].strip().strip('"')
+                    vorhanden.add(name)
+            for kandidat in ("Sent Items", "Sent", "Gesendet", "INBOX.Sent"):
+                if kandidat in vorhanden:
+                    imap_folder = kandidat
+                    break
+            else:
+                sys.exit(f"❌ Kein Gesendet-Ordner gefunden in {addr}. Vorhanden: {sorted(vorhanden)}")
         # Ordnernamen mit Leerzeichen (z. B. "Sent Items") müssen gequotet werden.
         M.select(f'"{imap_folder}"', readonly=True)  # readonly → markiert nichts als gelesen
 

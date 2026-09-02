@@ -1,0 +1,12 @@
+Absender_Muster;Betreff_Muster;Zielbox;Typ;Notiz
+# Belegmails OHNE PDF-Anhang, die der Hub selbst in ein PDF rendern soll.
+# Absender_Muster/Betreff_Muster = regulaere Ausdruecke (Gross/Klein egal).
+# Zielbox: bank | kreditkarte_master | kasse | rechnungseingang | rechnungsausgang
+#   (leer lassen = Hub leitet den Zahlweg aus dem Mailtext ab)
+# Apple und PayPal sind fest eingebaut (scripts/bh_html2pdf.py) und muessen hier NICHT stehen.
+# Beispiele - bei Bedarf Kommentarzeichen entfernen und pruefen:
+#adobe\.com;rechnung|invoice|beleg;kreditkarte_master;eingangsrechnung;Adobe Creative Cloud
+#google\.com;zahlungsbestaetigung|rechnung|invoice;kreditkarte_master;eingangsrechnung;Google Workspace
+#hostinger\.com;rechnung|invoice|payment;kreditkarte_master;eingangsrechnung;Hostinger Hosting
+#dropbox\.com;rechnung|receipt|invoice;kreditkarte_master;eingangsrechnung;Dropbox
+#telekom\.de;rechnung;bank;eingangsrechnung;Telekom Lastschrift

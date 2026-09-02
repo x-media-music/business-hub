@@ -112,3 +112,47 @@ alle 68 OFFENEN Zeilen tragen jetzt einen `[TD:]`-Marker. „Für Claude": leer.
 **Offene Loops mit datierter Aufgabe** (alle in aufgaben.csv + Todoist):
 Todoist-Restarbeiten 20.07. · Claude-API ohne Guthaben 17.07. · Plausible-Trial 17.07. ·
 Supabase Buchhaltungs-App 20.07.
+
+---
+
+## Stand 31.08.2026 — Modul DARLEHEN neu
+
+**Anlass:** Janis Herb bat in seiner 2. August-Rechnung um Abzug von 150 € „Tilgung". Dahinter steht
+ein Darlehen, das im Hub bis dahin nicht bekannt war.
+
+**Sachverhalt:** Die **x-media music GmbH** hat Janis Herb am **01.04.2026 4.000 € zu 3 % p. a.**
+geliehen. Getilgt wird **unregelmäßig durch Verrechnung mit seinen Gagenrechnungen** — Janis meldet
+den Tilgungswunsch im Rechnungstext, wenn er zahlen kann. Schriftlicher Vertrag existiert laut Dirk,
+liegt aber noch **nicht im Hub** (Aufgabe 07.09.2026).
+
+**Prüfung von Dirks Excel (31.08.2026):** Systematik richtig (Staffelrechnung, Zins auf Restschuld,
+Zins wird zugeschlagen). Drei Fehler: Tagesspalte war von Hand gefüllt → 40/20/32 statt 30/14/31 Tage;
+Jahreszahl-Tippfehler 30.07.**3036**. Folge: 5,09 € zu wenig Zinsen.
+**Richtig zum 31.08.2026: 2.000 € getilgt, 37,82 € Zinsen, Restschuld 2.037,82 €.**
+
+**Neu im Hub:**
+
+| Was | Wo |
+|---|---|
+| Darlehenskonto + Stammdaten | `module/darlehen/darlehen_janis_herb.csv` · `stammdaten_janis_herb.csv` |
+| Modul-Regeln + Workflow | `module/darlehen/README.md` |
+| Script (Stand, Buchen, PDF) | `scripts/darlehen.py` |
+| Akte | `wissensbasis/D/Darlehen-Janis-Herb.md` |
+| Korrigierte Excel | `module/darlehen/Darlehen_Janis_Herb_2026_korrigiert.xlsx` |
+| Datenblatt-PDFs | `reports/Darlehen_Janis_Herb_Datenblatt_*.pdf` |
+
+**Automatik verankert (31.08.2026):**
+
+- `buchhaltung-check` (4×/Tag) meldet Belege von Darlehensnehmern mit Warnhinweis + Restschuld.
+- `morgen-briefing` hat einen neuen Pflichtschritt **5c Darlehens-Wächter** (Tilgungshinweise erkennen,
+  Rechnungsbetrag/Tilgung/Restbetrag getrennt nennen, ab 1.12. an die Zinsabgrenzung erinnern).
+- Neue geplante Aufgabe **`darlehen-zinsabgrenzung-jahresende`** — jährlich **15.12., 9:00**: erzeugt je
+  Darlehen das finanzamtfähige Datenblatt mit Zinsabgrenzung zum 31.12. und meldet offene Punkte.
+- `CLAUDE.md` Modul-Routing um „Darlehen, Tilgung, Zinsen" erweitert.
+
+**⚠️ NOCH OFFEN — von Dirk nativ zu erledigen:** Der Regelblock für `.claude/rules/03_buchhaltung.md`
+liegt fertig in `module/darlehen/REGEL-PATCH_03_buchhaltung.md`. In der Cowork-Session ist `.claude/`
+schreibgeschützt. Bitte den Block dort einfügen (nach `## GRUNDPRINZIP`), danach die Patch-Datei löschen.
+
+**Grundregel:** Beleg immer in **voller Höhe** an DATEV — nur die **Zahlung** ist um die Tilgung gekürzt.
+Gebucht wird erst **nach** der Überweisung, mit dem Zahltag als Datum.

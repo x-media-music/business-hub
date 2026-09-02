@@ -1,0 +1,17 @@
+Feld;Wert
+Darlehensnehmer;Janis Herb
+Darlehensnehmer_Kontakt;janis.herb@googlemail.com
+Darlehensnehmer_IBAN;DE78 6665 0085 0008 4991 95
+Darlehensgeber;x-media music GmbH
+Darlehensgeber_Adresse;Obere Str. 13, 70190 Stuttgart
+Darlehensgeber_Vertreter;Dirk Wöhrle, Geschäftsführer
+Darlehensbetrag;4000,00
+Auszahlungsdatum;01.04.2026
+Zinssatz_p_a;3,00
+Zinsmethode;act/365 (taggenau, Ist-Tage / 365)
+Zinsverrechnung;Zinsen werden bei jedem Ereignis berechnet und der Restschuld zugeschlagen (Staffelrechnung mit Kapitalisierung)
+Tilgungsform;Unregelmäßige Tilgung durch Verrechnung (Aufrechnung) mit Gagenrechnungen des Darlehensnehmers
+Endfaelligkeit;Keine feste Laufzeit und kein Tilgungsplan vereinbart. Tilgung nach Leistungsfähigkeit des Darlehensnehmers durch Verrechnung mit seinen Gagenrechnungen. Es gilt die gesetzliche Kündigungsregel des § 488 Abs. 3 BGB (Kündigung mit Frist von drei Monaten).
+Sicherheiten;"Keine dinglichen Sicherheiten bestellt. Faktische Sicherung über die laufende Geschäftsbeziehung: Der Darlehensnehmer ist fortlaufend als Musiker für den Darlehensgeber tätig; die Tilgung erfolgt durch Aufrechnung mit seinen Gagenansprüchen aus diesen Engagements."
+Vertrag_Datum;OFFEN — aus Darlehensvertrag nachtragen
+Vertrag_Ablage;OFFEN — Vertrag liegt laut Dirk vor, ist aber noch nicht im Hub abgelegt

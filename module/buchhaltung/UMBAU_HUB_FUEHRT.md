@@ -43,6 +43,7 @@ Belege blieben liegen. Dirk dreht die Führung zurück zum Hub.
       ├ ist_rechnung.py: Rechnung? (rechnung@ offensiv, info@ konservativ)
       ├ Routing: datev_routing.csv (music→DATEV-Box) / event_routing.csv (event→Dropbox-Ordner)
       ├ Mehrfach-PDF-Merge (UTA 3 PDFs, Boss 3 PDFs, …)
+      ├ bh_html2pdf.py: Belegmail OHNE PDF-Anhang → Hub rendert selbst ein PDF (Apple, PayPal …)
       ├ Standard-Dateiname + PDF in Supabase Storage
       └ INSERT bh_belege: status='warte_bestaetigung', erstellt_von='hub', Box-Vorschlag, Betrag, Absender, Rg-Nr
             (Dedup über pdf_hash / rechnungsnummer gegen Bestand)
@@ -61,6 +62,25 @@ Belege blieben liegen. Dirk dreht die Führung zurück zum Hub.
 
 ### Sonderfall stehende Freigaben
 - **UTA Edenred (Tankkarte):** stehende Freigabe (Dirk 21.07.2026) → darf autonom an Bank-Uploadmail, ohne Einzel-Gate; im Report weiter ausweisen.
+
+### Sonderfall Belegmails OHNE PDF-Anhang (seit 20.08.2026)
+
+Apple, PayPal & Co. schicken den Beleg nur als HTML-Mail. `scripts/bh_html2pdf.py`
+rendert daraus ein text-durchsuchbares PDF (Kopfdaten + vollständiger Mailtext +
+Herkunftshinweis) und liefert Betrag, Belegnummer, Belegdatum und Zahlweg mit.
+
+- **Konservativ:** greift nur, wenn eine Absender-Regel passt **und** ein Betrag
+  gefunden wird. Newsletter/Spam lösen nichts aus (Test 20.08.: 170 Mails → 3 Treffer).
+- **Zielbox aus dem Zahlweg:** Mastercard → Kreditkarte Master · PayPal/Lastschrift/EC →
+  Bank · sonst Rechnungseingang. Ein Treffer in `datev_routing.csv` hat Vorrang.
+- **Fest eingebaut:** Apple, PayPal. **Erweiterbar** ohne Code über
+  `module/buchhaltung/html_belege.csv` (Absender-/Betreff-Regex + Zielbox).
+- **Dedup** über einen stabilen Hash aus Absender + Betreff + Mailtext (nicht über
+  die PDF-Bytes — die enthalten den Erzeugungszeitpunkt).
+- Die Belege landen wie alle anderen als `warte_bestaetigung` in der App; Freigabe
+  bleibt bei Dirk.
+- **Nachlauf für ältere Mails:** `python3 scripts/bh_ingest.py --box info --from-uid <UID>`
+  (mit `--dry-run` erst anschauen). Der Cursor wird dabei nie zurückgedreht.
 
 ---
 
@@ -124,3 +144,33 @@ z. B. `Jessie_Rennings_2026-08-14.pdf` · `UTA_Edenred_Deutschland_GmbH_und_Co._
 - Gilt für **beide** Wege: DATEV-Mailanhang (music) und Dropbox-Kopie (event).
 - Dropbox: existiert der Name schon, wird `_2`, `_3` … angehängt (nie überschreiben).
 - Funktion: `clean_name()` / `absender_slug()` in `scripts/bh_send.py`.
+
+---
+
+## Freigabe-Werte: `box_geaendert` / `firma_geaendert` (Fix 29.08.2026)
+
+**Fall:** Rechnung Jonas Schoof RE620280721 (music, 1.943,84 €) wurde am 28.08. in der
+App freigegeben — Dirk hat dabei die Box auf **Bank** geändert (per Sofortüberweisung
+über das BW-Bank-Portal bezahlt). Sie kam nie bei DATEV an.
+
+**Ursache — zwei Fehler gleichzeitig:**
+
+1. Ändert Dirk beim Freigeben die Box, schreibt die App `dirk_entscheidung='box_geaendert'`
+   (bei Firmenwechsel `firma_geaendert`) statt `freigegeben`. `bh_send.py` filterte strikt
+   auf `freigegeben` → der Beleg wurde nie abgeholt. Da er zugleich auf
+   `status='verarbeitet'` steht, taucht er auch in keiner „Wartend"-Liste auf: er
+   verschwindet **lautlos**. Betraf 5 Belege (3× box_geaendert, 2× firma_geaendert).
+2. Beim Box-Wechsel zieht die App `datev_email` **nicht** mit: Kategorie stand auf `bank`,
+   die Adresse noch auf Rechnungseingang. `send_music()` nimmt `datev_email` vorrangig
+   vor der Box → der Beleg wäre in der falschen DATEV-Box gelandet.
+
+**Fix in `bh_send.py`:** `FREIGABE_WERTE = (freigegeben, box_geaendert, firma_geaendert)`.
+Für die zwei neuen Werte gilt der eigene Stichtag `BOXCHANGE_GOLIVE = 2026-08-29` — ältere
+Fälle werden nur als HAENGER gemeldet, nicht ungefragt verschickt.
+
+**Noch offen (die 4 gemeldeten Hänger, brauchen Sichtprüfung mit Dirk):**
+Getränke Zehnder 1.678,03 € · Remstalkellerei 69,97 € (beide `firma_geaendert`, status
+`fehler`, 03.08.) · fatturazioneelettronica 127,73 € (18.08.) · Telekom 71,58 € (21.08.).
+
+**Offener Punkt App-Seite:** `datev_email` beim Box-Wechsel mitziehen (oder in der App gar
+nicht setzen und `bh_send` die Adresse aus der Box ableiten lassen — robuster).

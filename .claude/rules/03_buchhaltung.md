@@ -18,6 +18,32 @@ Portale), Belegsortierung, Überweisungs-Vorbereitung, Übergabe an DATEV.
 
 ---
 
+## ⚠️ DARLEHENS-CHECK VOR JEDER ZAHLUNGSVORBEREITUNG (seit 31.08.2026)
+
+Bei **jeder** Eingangsrechnung eines Darlehensnehmers gilt: **erst Darlehen prüfen, dann
+den Zahlbetrag nennen.** Sonst wird der volle Rechnungsbetrag überwiesen und die Tilgung
+geht verloren.
+
+**Aktive Darlehensnehmer:** Janis Herb (`module/darlehen/README.md` führt die Liste)
+
+Ablauf:
+
+1. Rechnungssteller steht in `module/darlehen/` → Stand ziehen:
+   `python3 scripts/darlehen.py <slug> --status`
+2. Rechnungstext auf einen **Tilgungshinweis** prüfen („bitte X € als Tilgung abziehen").
+   Janis Herb meldet Tilgungen ausschließlich so — er tilgt unregelmäßig, wenn er kann.
+3. In der Zahlungs-Aufgabe **beide Beträge** nennen: Rechnungsbetrag, Tilgung, tatsächlich
+   zu überweisender Restbetrag.
+4. **Der Beleg selbst geht in voller Höhe an DATEV/Dropbox** — die Tilgung verändert die
+   Rechnung nicht, nur die Zahlung.
+5. **Nach der Überweisung** die Tilgung buchen (Buchungsdatum = Zahltag, nicht Rechnungsdatum):
+   `python3 scripts/darlehen.py <slug> --buchen --datum … --vorgang TILGUNG --betrag … --beleg …`
+6. Zum Jahreswechsel: `--pdf --stichtag 31.12.JJJJ` für die Steuerberatung.
+
+Details, Rechenweg und Jahresabschluss-Pflichten: `module/darlehen/README.md`
+
+---
+
 ## EINGANG — zentrale Rechnungs-Mailadresse
 
 - **rechnung@xmedia24.com** — hier laufen die **Musikerrechnungen** und die

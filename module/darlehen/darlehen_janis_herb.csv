@@ -1,0 +1,6 @@
+Datum;Vorgang;Betrag;Beleg;Notiz
+01.04.2026;AUSZAHLUNG;4000,00;;Darlehen ausgereicht an Janis Herb
+11.05.2026;TILGUNG;800,00;RG 04/2026;Durch Verrechnung mit Rechnung 04/2026
+31.05.2026;TILGUNG;450,00;RG 05/2026;Durch Verrechnung mit Rechnung 05/2026
+30.07.2026;TILGUNG;600,00;;Verrechnung - Rechnungsbezug bitte nachtragen
+31.08.2026;TILGUNG;150,00;RG August 2026 (2.);VORGEMERKT — Verrechnung mit 2. August-Rechnung (rechnung@ UID 637 vom 30.08.2026). Zahlung noch nicht erfolgt: bei Überweisung Datum auf den Zahltag korrigieren.

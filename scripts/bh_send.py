@@ -54,6 +54,18 @@ SB_KEY = ENV["SUPABASE_SERVICE_ROLE_KEY"]
 # Betrieb) werden NICHT automatisch verschickt, sondern separat gemeldet.
 HUB_GOLIVE = os.environ.get("HUB_GOLIVE") or ENV.get("HUB_GOLIVE") or "2026-08-11"
 
+# Entscheidungswerte, die als Freigabe gelten.
+# 'box_geaendert'/'firma_geaendert' setzt die App, wenn Dirk beim Freigeben zusaetzlich
+# die Box bzw. die Firma korrigiert — das ist ebenfalls eine Freigabe. Bis 29.08.2026
+# hat dieses Script nur 'freigegeben' abgeholt; solche Belege blieben still liegen
+# (Fall Jonas Schoof RE620280721, 1.943,84 EUR, entdeckt 29.08.2026).
+FREIGABE_WERTE = ("freigegeben", "box_geaendert", "firma_geaendert")
+
+# Fuer die nachtraeglich ergaenzten Werte gilt ein eigener Stichtag: aeltere Faelle
+# sind Haenger aus der Zeit vor dem Fix und werden nur gemeldet, nicht ungefragt
+# verschickt (sie brauchen erst eine Sichtpruefung mit Dirk).
+BOXCHANGE_GOLIVE = os.environ.get("HUB_BOXCHANGE_GOLIVE") or ENV.get("HUB_BOXCHANGE_GOLIVE") or "2026-08-29"
+
 # bekannte Event-Dropbox-Zielordner (zur Normalisierung des Feldes dropbox_ordner)
 XE_ORDNER = ["XE offene Eingangsrechnungen", "XE bezahlte Eingangsrechnungen/Master",
              "XE bezahlte Eingangsrechnungen", "XE Kassenbelege", "XE offene Ausgangsrechnugnen"]
@@ -190,19 +202,30 @@ def send_event(row, pdf_bytes, dry) -> tuple[bool, str]:
 
 def main():
     dry = "--dry-run" in sys.argv
-    st, rows = sb("GET", "/rest/v1/bh_belege?select=id,firma,absender_name,absender_email,rechnungsnummer,"
+    freigabe_in = "(" + ",".join(FREIGABE_WERTE) + ")"
+    st, alle = sb("GET", "/rest/v1/bh_belege?select=id,firma,absender_name,absender_email,rechnungsnummer,"
                   "rechnungsdatum,created_at,"
-                  "betrag_brutto,datev_kategorie,datev_email,dropbox_ordner,pdf_storage_path,zahlungsstatus,dirk_entschieden_am"
-                  f"&dirk_entscheidung=eq.freigegeben&verarbeitet_am=is.null&dirk_entschieden_am=gte.{HUB_GOLIVE}&order=firma")
-    if not isinstance(rows, list):
-        print("Fehler beim Laden:", rows); sys.exit(1)
-    # Altlasten (vor Go-Live freigegeben, nie ausgeliefert) separat melden, NICHT senden
-    sa, alt = sb("GET", "/rest/v1/bh_belege?select=firma,rechnungsnummer,absender_name,betrag_brutto,dirk_entschieden_am"
-                 f"&dirk_entscheidung=eq.freigegeben&verarbeitet_am=is.null&dirk_entschieden_am=lt.{HUB_GOLIVE}&order=dirk_entschieden_am")
-    if isinstance(alt, list) and alt:
-        print(f"⚠ {len(alt)} ALTLASTEN (vor {HUB_GOLIVE} freigegeben, nie ausgeliefert) — NICHT automatisch verschickt:")
+                  "betrag_brutto,datev_kategorie,datev_email,dropbox_ordner,pdf_storage_path,zahlungsstatus,"
+                  "dirk_entscheidung,dirk_entschieden_am"
+                  f"&dirk_entscheidung=in.{freigabe_in}&verarbeitet_am=is.null&order=firma")
+    if not isinstance(alle, list):
+        print("Fehler beim Laden:", alle); sys.exit(1)
+
+    def stichtag(row) -> str:
+        # 'freigegeben' gilt ab Hub-Go-Live, die nachtraeglich ergaenzten Werte ab ihrem eigenen Stichtag
+        return HUB_GOLIVE if row.get("dirk_entscheidung") == "freigegeben" else BOXCHANGE_GOLIVE
+
+    rows, alt = [], []
+    for r in alle:
+        (rows if str(r.get("dirk_entschieden_am") or "")[:10] >= stichtag(r) else alt).append(r)
+
+    # Haenger (vor dem jeweiligen Stichtag entschieden, nie ausgeliefert) melden, NICHT senden
+    if alt:
+        alt.sort(key=lambda a: str(a.get("dirk_entschieden_am") or ""))
+        print(f"⚠ {len(alt)} HAENGER (vor Stichtag entschieden, nie ausgeliefert) — NICHT automatisch verschickt:")
         for a in alt:
-            print(f"    - {a.get('firma'):5} {a.get('rechnungsnummer') or '-':14} {a.get('absender_name','')[:34]:34} {a.get('betrag_brutto')} € (freigegeben {str(a.get('dirk_entschieden_am'))[:10]})")
+            print(f"    - {a.get('firma'):5} {a.get('rechnungsnummer') or '-':14} {a.get('absender_name','')[:34]:34} "
+                  f"{a.get('betrag_brutto')} € ({a.get('dirk_entscheidung')} {str(a.get('dirk_entschieden_am'))[:10]})")
     if not rows:
         print(f"bh_send: keine freigegebenen, unverarbeiteten Belege ab {HUB_GOLIVE}."); return
     print(f"bh_send: {len(rows)} freigegebene Belege ab {HUB_GOLIVE}{' (DRY-RUN)' if dry else ''}")

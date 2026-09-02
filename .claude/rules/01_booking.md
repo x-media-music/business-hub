@@ -10,6 +10,35 @@ Gilt für: Kundenanfragen, Angebote, Vertragsverhandlung, Vertragserstellung, Ev
 - Der Künstler/die Band ist unser Produkt, der Veranstalter/das Venue ist der Kunde.
 - Nie Preise/Gagen ohne Freigabe kommunizieren.
 
+### CRM-Status mitziehen — fester Workflow-Schritt (seit 13.08.2026)
+
+Bei **jeder** Status-Änderung eines Booking-Vorgangs wird der Anfrage-Status im CRM sofort
+mitgesetzt. Kein Vorgang bleibt verwaist.
+
+1. Anfrage finden: `mcp__xmedia-crm__lies_anfragen` (Freitext, z. B. Name / Ort / Band)
+2. Status setzen: `mcp__xmedia-crm__aktualisiere_anfrage_status`
+   - Ohne `bestaetigt=true` gibt es nur eine Vorschau; erst der zweite Aufruf schreibt.
+   - Vor dem Schreiben **kurze Bestätigung von Dirk** — ein CRM-Schreibvorgang ist OWNER-GATE-nah.
+3. Im Abschlussbericht vermerken, z. B. „CRM-Status → Verloren".
+
+**Status-Mapping (exakte DB-Schreibweise):**
+
+| Hub-Ereignis | CRM-Status |
+|---|---|
+| Kunde sagt ab / Vorgang verloren | `Verloren` |
+| Angebot raus | `Angebot versandt` |
+| 1× / 2× nachgehakt | `Angebot versandt 1x nachgehakt` / `Angebot versandt 2x nachgehakt` |
+| Mündliche Zusage | `Zusage mündlich` |
+| Vertrag versandt | `Vertrag versandt` |
+| Fix bestätigt | `Fix` |
+| GEMA gemeldet | `GEMA gemeldet` |
+| Storno / Archiv | `Storno` / `Archiv` |
+| (weiter) | `NEU`, `Rückfrage` |
+
+Anlass: Absage Hofmeier/Löffingen (XM-2026-035) — Dirk hat den Status im CRM von Hand
+gesetzt und gewünscht, dass der Hub das künftig mitmacht.
+Herkunft und Langfassung: `module/booking/CRM_STATUS_SYNC.md`.
+
 ---
 
 ## BOOKING-WORKFLOW (Phasen)

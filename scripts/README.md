@@ -34,6 +34,39 @@ xmedia24.com). Nur Python-Standardbibliothek — keine Zusatzpakete nötig.
 
 Login = volle E-Mail-Adresse + Postfach-Passwort.
 
+## Postfächer (Stand 16.08.2026)
+
+| `--from` | Adresse | Nutzung |
+|---|---|---|
+| `info` | info@xmedia24.com | Korrespondenz music — lesen **+ senden** |
+| `rechnung` | rechnung@xmedia24.com | Belege music — lesen + senden (DATEV) |
+| `info_event` | info@xmedia-event.de | Korrespondenz event — lesen + senden |
+| `rechnung_event` | rechnung@xmedia-event.de | Belege event — lesen + senden |
+| `ninox` | ninox@xmedia24.com | Ninox-Versandweg — **NUR LESEN** |
+| `anfrage` | anfrage@xmedia24.com | CRM-Versandweg — **NUR LESEN**, hier laufen auch Kunden-Rueckfragen ein |
+
+**ninox@ und anfrage@ sind bewusst nur in `check_inbox.py` verfügbar, nicht in
+`send_email.py`.** Über diese Adressen versenden Ninox bzw. das CRM — der Hub
+liest den Ausgang nur mit, damit der Stand-Check nicht nachfasst, was längst
+raus ist. Dafür ist `--folder sent` der wichtige Aufruf:
+
+**Wichtig — zwei Quellen, zwei Rollen:**
+
+- **anfrage@** ist der eigentliche CRM-Versandweg. Im **Posteingang** landen die
+  Kunden-Rueckfragen auf Angebote/Vertraege sowie die Formular-Anfragen von
+  hofbraeu-regiment.de. Fuer den Stand-Check die wichtigste Quelle.
+- **ninox@** bekommt von jeder ueber anfrage@ verschickten Mail eine Kopie in den
+  **Posteingang** (nicht in den Gesendet-Ordner) — das Archiv des CRM-Ausgangs.
+
+```
+python3 check_inbox.py --from anfrage --since 2026-08-01   # Kunden-Rueckfragen
+python3 check_inbox.py --from ninox   --since 2026-08-01   # CRM-Ausgang (Archiv)
+```
+
+Strato benennt den Gesendet-Ordner je Postfach unterschiedlich
+(`info@`/`rechnung@` = "Sent Items", `anfrage@` = "Sent"). `--folder sent`
+erkennt das seit 16.08.2026 automatisch.
+
 ## check_inbox.py — Beispiele
 
 ```
